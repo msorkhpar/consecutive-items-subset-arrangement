@@ -1,9 +1,13 @@
 import networkx as nx
-import numpy as np
+
+from utils.random_sets import generate_k_numbers_with_total_sum_m
 
 
 def assign_random_values_to_item_set(G: nx.Graph):
+    items = [node for node, attr in G.nodes(data=True) if attr['bipartite'] == 0]
+    players = [node for node, attr in G.nodes(data=True) if attr['bipartite'] == 1]
     nx.set_node_attributes(G, {
-        node: {'value': np.round(np.random.uniform(0, 1), 5)} for node, attr in G.nodes(data=True)
-        if attr['bipartite'] == 0
+        item: {'value': num} for item, num in
+        zip(items,
+            generate_k_numbers_with_total_sum_m(len(items), len(players)))
     })

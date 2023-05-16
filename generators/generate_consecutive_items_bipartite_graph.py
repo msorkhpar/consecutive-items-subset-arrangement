@@ -1,6 +1,10 @@
+import logging
+
 import numpy as np
 
 from utils.omit_non_intersecting_pairs import remove_non_intersecting_pairs
+
+logger = logging.getLogger(__name__)
 
 
 def generate_random_edge_set(nodes: int, min_pairs: int, max_pairs: int):
@@ -27,5 +31,8 @@ def generate_random_edge_set(nodes: int, min_pairs: int, max_pairs: int):
 
     # Create edge list of items connected to players using item_sets values
     edges = [(item, player) for i, player in enumerate(players) for item in range(item_sets[i][0], item_sets[i][1] + 1)]
+
+    while len(items) < len(players):
+        items, players, edges = generate_random_edge_set(nodes, min_pairs, max_pairs)
 
     return items, players, edges

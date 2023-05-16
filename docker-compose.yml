@@ -10,6 +10,7 @@ services:
     environment:
       TZ: America/Indiana/Indianapolis
       PYTHONUNBUFFERED: 1
+      LOG_LEVEL: ${LOG_LEVEL}
     volumes:
       - ./plan.csv:/app/plan.csv
 
