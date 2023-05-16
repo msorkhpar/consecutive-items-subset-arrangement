@@ -17,7 +17,7 @@ def generate_random_edge_set(nodes, min_pairs, max_pairs):
             )
         )
 
-        # Sort the items pairs by their starting range
+        # Sort the items pairs by their starting range and remove non-intersecting pairs
         item_sets = remove_non_intersecting_pairs(item_sets)
 
     items = sorted(set(num for start, end in item_sets for num in range(start, end + 1)))

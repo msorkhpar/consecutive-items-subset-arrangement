@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: consecutive-items-subset-arrangement:1.0
+    container_name: consecutive-items-subset-arrangement
+    command: python3 main.py
+    environment:
+      TZ: America/Indiana/Indianapolis
+      PYTHONUNBUFFERED: 1
+    volumes:
+      - ./plan.csv:/app/plan.csv
+
+    deploy:
+      resources:
+        limits:
+          cpus: "10"
+          memory: 50GB
+        reservations:
+          cpus: "1"
+          memory: 2GB
