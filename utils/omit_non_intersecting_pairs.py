@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def remove_non_intersecting_pairs(item_sets):
+def remove_non_intersecting_pairs(item_sets: list[tuple[int, int]]):
     # Create a DataFrame from the list of pairs
     df = pd.DataFrame(item_sets, columns=["start", "end"])
 

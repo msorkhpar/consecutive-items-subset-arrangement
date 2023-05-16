@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import networkx as nx
 
 
-def construct_bipartite_graph(items, players, edges):
+def construct_bipartite_graph(items: list, players: list, edges: list[tuple[str | int, str | int]]):
     # Create a bipartite graph
     G = nx.Graph()
 

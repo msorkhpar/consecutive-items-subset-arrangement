@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 
 from generators.generate_bipartite_graph import construct_bipartite_graph
 from generators.generate_consecutive_items_bipartite_graph import generate_random_edge_set
+from transformers.assign_items_random_values import assign_random_values_to_item_set
+from transformers.ceiling_big_items_values import ceiling_big_item_values
 
 if __name__ == '__main__':
     load_dotenv()
@@ -17,3 +19,5 @@ if __name__ == '__main__':
         for i in range(no_samples):
             items, players, edges = generate_random_edge_set(row['nodes'], row['min_pairs'], row['max_pairs'])
             G = construct_bipartite_graph(items, players, edges)
+            assign_random_values_to_item_set(G)
+            ceiling_big_item_values(G)
