@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 import pandas as pd
 
 
@@ -11,4 +13,5 @@ def remove_non_intersecting_pairs(item_sets: list[tuple[int, int]]):
     # Convert the filtered DataFrame back to a list of pairs
     item_sets = df[overlapping].apply(tuple, axis=1).tolist()
     item_sets.sort()
+
     return item_sets
