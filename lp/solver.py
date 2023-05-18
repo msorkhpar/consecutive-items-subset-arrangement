@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+import time
+
 import networkx as nx
 from ortools.linear_solver import pywraplp
 
@@ -13,26 +17,36 @@ from lp.objectives.maximize_k import maximize_k
 class Solver:
     def __init__(self, graph: nx.Graph):
         self._graph = graph
+        self.parameters = Parameters(self._graph)
+        self._create_variables()
+        self._set_up_constraints()
+        self._set_objectives()
 
-    def solve(self) -> Solution or None:
-        parameter = Parameters(self._graph)
-        try:
-            create_adjacency_variables(parameter)
-            set_max_k_total_value_picked_subset_items(parameter)
-            set_min_k_total_value_assigned_to_player(parameter)
-            omit_infeasible_neighbors(parameter)
-            maximize_k(parameter)
-            status = parameter.solve()
-            if status == pywraplp.Solver.OPTIMAL:
-                solution = Solution()
-                solution.assign_solution(parameter)
-                if solution.fractional_k == 1.0:
-                    parameter.change_to_integral()
-                    status = parameter.solve()
-                    if status == pywraplp.Solver.OPTIMAL:
-                        solution.assign_solution(parameter)
-                return solution
-        finally:
-            parameter.clear_context()
-            del parameter
+    def _create_variables(self):
+        create_adjacency_variables(self.parameters)
+
+    def _set_up_constraints(self):
+        set_max_k_total_value_picked_subset_items(self.parameters)
+        set_min_k_total_value_assigned_to_player(self.parameters)
+        omit_infeasible_neighbors(self.parameters)
+
+    def _set_objectives(self):
+        maximize_k(self.parameters)
+
+    def change_to_integral(self):
+        self.parameters.change_to_integral()
+
+    def solve(self) -> Solution | None:
+        start = time.time()
+        status = self.parameters.solve()
+        if status == pywraplp.Solver.OPTIMAL:
+            solution = Solution()
+            solution.running_time = time.time() - start
+            solution.assign_solution(self.parameters)
+            return solution
+
         return None
+
+    def clear(self):
+        self.parameters.clear_context()
+        del self.parameters

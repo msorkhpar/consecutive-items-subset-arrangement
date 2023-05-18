@@ -11,9 +11,16 @@ services:
       TZ: America/Indiana/Indianapolis
       PYTHONUNBUFFERED: 1
       LOG_LEVEL: ${LOG_LEVEL}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./plan.csv:/app/plan.csv
-
+    depends_on:
+      db:
+        condition: service_healthy
     deploy:
       resources:
         limits:
@@ -22,3 +29,21 @@ services:
         reservations:
           cpus: "1"
           memory: 2GB
+  db:
+    image: postgres
+    restart: unless-stopped
+    container_name: cisa-pg-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

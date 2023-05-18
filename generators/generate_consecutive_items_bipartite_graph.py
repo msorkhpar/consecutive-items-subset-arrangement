@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 
 import numpy as np
@@ -7,7 +9,9 @@ from utils.omit_non_intersecting_pairs import remove_non_intersecting_pairs
 logger = logging.getLogger(__name__)
 
 
-def generate_random_edge_set(nodes: int, min_pairs: int, max_pairs: int):
+def generate_random_edge_set(nodes: int, min_pairs: int, max_pairs: int) -> tuple[
+    list[int | str], list[str], list[int, int], list[tuple[int | str, str]]
+]:
     # Pick a random number of pairs between min_pairs and max_pairs
     num_pairs = np.random.randint(min_pairs, max_pairs + 1)
 
@@ -33,6 +37,7 @@ def generate_random_edge_set(nodes: int, min_pairs: int, max_pairs: int):
     edges = [(item, player) for i, player in enumerate(players) for item in range(item_sets[i][0], item_sets[i][1] + 1)]
 
     while len(items) < len(players):
-        items, players, edges = generate_random_edge_set(nodes, min_pairs, max_pairs)
+        del items, players, item_sets, edges
+        items, players, item_sets, edges = generate_random_edge_set(nodes, min_pairs, max_pairs)
 
-    return items, players, edges
+    return items, players, item_sets, edges

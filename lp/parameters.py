@@ -71,7 +71,7 @@ class Parameters:
         return self.H.nodes[item]['value']
 
     @lru_cache(maxsize=None)
-    def players(self) -> list[int | str]:
+    def players(self) -> list[str]:
         return [n for n in self.H.nodes if self.H.nodes[n]['bipartite'] == 1]
 
     @lru_cache(maxsize=None)

@@ -14,6 +14,7 @@ WORKDIR /app
 COPY main.py .
 COPY generators/ ./generators/
 COPY lp/ ./lp/
+COPY persistent/ ./persistent/
 COPY transformers/ ./transformers/
 COPY utils/ ./utils/
 
