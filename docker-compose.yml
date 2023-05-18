@@ -16,6 +16,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+      NUMBER_OF_PROCESSES: ${NUMBER_OF_PROCESSES}
     volumes:
       - ./plan.csv:/app/plan.csv
     depends_on:
