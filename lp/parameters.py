@@ -12,7 +12,6 @@ def to_index(i: str, j: str) -> str:
 
 class Parameters:
     def __init__(self, h: nx.Graph):
-        self.with_fractions = True
         self.H: nx.Graph = h
         self._solver = pywraplp.Solver.CreateSolver('SCIP')
         self.variables: dict[str, pywraplp.Variable] = dict()
@@ -35,10 +34,7 @@ class Parameters:
 
     def add_variable(self, i: str, j: str, lower_bound: float = 0.0, upper_bound: float = 1.0):
         index = to_index(i, j)
-        if self.with_fractions:
-            self.variables[index] = self._solver.NumVar(lower_bound, upper_bound, index)
-        else:
-            self.variables[index] = self._solver.IntVar(lower_bound, upper_bound, index)
+        self.variables[index] = self._solver.NumVar(lower_bound, upper_bound, index)
 
     def add_range_constraint(self, lower_bound: float, upper_bound: float, name=''):
         return self._solver.Constraint(
@@ -79,10 +75,8 @@ class Parameters:
         return list(self.H.neighbors(node))
 
     def change_to_integral(self):
-        if self.with_fractions:
-            self.with_fractions = False
-            self.variables['K'].SetBounds(0.0, 1.0)
-            [self.variables[key].SetInteger(True) for key in self.variables if key != 'K']
+        self.variables['K'].SetBounds(0.0, 1.0)
+        [self.variables[key].SetInteger(True) for key in self.variables if key != 'K']
 
     def solve(self) -> int:
         return self._solver.Solve()

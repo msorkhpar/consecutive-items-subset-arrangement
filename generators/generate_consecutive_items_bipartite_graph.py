@@ -9,7 +9,7 @@ from utils.omit_non_intersecting_pairs import remove_non_intersecting_pairs
 logger = logging.getLogger(__name__)
 
 
-def generate_random_edge_set(nodes: int, min_pairs: int, max_pairs: int) -> tuple[
+def generate_random_consecutive_items_edge_set(nodes: int, min_pairs: int, max_pairs: int) -> tuple[
     list[int | str], list[str], list[int, int], list[tuple[int | str, str]]
 ]:
     # Pick a random number of pairs between min_pairs and max_pairs
@@ -38,6 +38,6 @@ def generate_random_edge_set(nodes: int, min_pairs: int, max_pairs: int) -> tupl
 
     while len(items) < len(players):
         del items, players, item_sets, edges
-        items, players, item_sets, edges = generate_random_edge_set(nodes, min_pairs, max_pairs)
+        items, players, item_sets, edges = generate_random_consecutive_items_edge_set(nodes, min_pairs, max_pairs)
 
     return items, players, item_sets, edges
