@@ -40,8 +40,8 @@ def persist_bigraph(G: nx.Graph) -> int:
             number_of_edges=len(edges),
             items=items,
             item_sets=item_sets,
+            edges=edges,
             # players=players,
-            # edges=edges,
         )
         g.save()
         return g.bigraph_id

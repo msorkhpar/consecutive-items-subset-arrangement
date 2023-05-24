@@ -1,0 +1,17 @@
+a, p1
+b, p1
+b, p2
+c, p1
+c, p2
+c, p3
+d, p1
+d, p2
+d, p3
+e, p1
+e, p2
+e, p3
+f, p1
+f, p3
+g, p1
+g, p3
+h, p1
