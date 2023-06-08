@@ -64,7 +64,7 @@ def process_task(data):
         if integral_solution is None:
             return
         logger.info(f"Integral K=[{integral_solution.K}] has been found.")
-        if integral_solution.K >= 2:
+        if integral_solution.K <= 0.5:
             bigraph_id = persist_bigraph(G)
             persist_fractional_solution(
                 bigraph_id, fractional_solution.K, fractional_solution.variables, fractional_solution.running_time

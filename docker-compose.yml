@@ -19,6 +19,7 @@ services:
       NUMBER_OF_PROCESSES: ${NUMBER_OF_PROCESSES}
     volumes:
       - ./plan.csv:/app/plan.csv
+      - ./random_plan.csv:/app/random_plan.csv
     depends_on:
       db:
         condition: service_healthy
