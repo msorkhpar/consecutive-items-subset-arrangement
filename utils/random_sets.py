@@ -17,7 +17,7 @@ def generate_k_numbers_with_total_sum_m(k, m):
         numbers = np.random.choice(choices, size=k)
     else:
         numbers = np.random.uniform(0, 1, k)
-        numbers[numbers >= 0.5] = 1
+        numbers[numbers >= 1/3] = 1
 
     attempts = 0
     while numbers.sum() <= m:
@@ -25,9 +25,9 @@ def generate_k_numbers_with_total_sum_m(k, m):
             numbers = np.random.choice(choices, size=k)
         else:
             numbers = np.random.uniform(0, 1, k)
-            numbers[numbers >= 0.5] = 1
+            numbers[numbers >= 1/3] = 1
 
         attempts += 1
-        if attempts == 100:
+        if attempts == 500:
             numbers = np.ones(k)
     return numbers

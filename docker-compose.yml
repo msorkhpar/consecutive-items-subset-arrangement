@@ -17,6 +17,7 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       NUMBER_OF_PROCESSES: ${NUMBER_OF_PROCESSES}
+      GRAPH_GENERATION_TYPE: ${GRAPH_GENERATION_TYPE}
     volumes:
       - ./plan.csv:/app/plan.csv
       - ./random_plan.csv:/app/random_plan.csv
