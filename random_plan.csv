@@ -1,0 +1,2 @@
+min_items,max_items,min_players,max_players,min_edges,max_edges,samples
+25, 50, 10, 20, 70, 200, 2

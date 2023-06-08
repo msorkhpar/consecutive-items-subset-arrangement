@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import random
 
 import numpy as np
 
@@ -13,14 +14,14 @@ def generate_random_consecutive_items_edge_set(nodes: int, min_pairs: int, max_p
     list[int | str], list[str], list[int, int], list[tuple[int | str, str]]
 ]:
     # Pick a random number of pairs between min_pairs and max_pairs
-    num_pairs = np.random.randint(min_pairs, max_pairs + 1)
+    num_pairs = random.randint(min_pairs, max_pairs + 1)
 
     item_sets = []
     while len(item_sets) <= 1:
         # Create a list of randomly generated node pair ranges
         item_sets = list(
             map(
-                lambda start: (start, np.random.randint(start + 2, nodes + 1)),
+                lambda start: (start, random.randint(start + 2, nodes + 1)),
                 np.random.randint(1, nodes - 2, size=num_pairs)
             )
         )
